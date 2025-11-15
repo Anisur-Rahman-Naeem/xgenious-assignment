@@ -4,7 +4,13 @@ import 'package:xgenious_assignment/app/assets_path.dart';
 import 'package:xgenious_assignment/features/home/ui/widgets/category_item.dart';
 import 'package:xgenious_assignment/features/home/ui/widgets/custom_appbar.dart';
 import 'package:xgenious_assignment/features/home/ui/widgets/home_carousal_slider.dart';
+import 'package:xgenious_assignment/features/home/ui/widgets/lists_headline.dart';
+import 'package:xgenious_assignment/features/home/ui/widgets/load_more_button.dart';
+import 'package:xgenious_assignment/features/home/ui/widgets/popular_service_cards.dart';
+import 'package:xgenious_assignment/features/home/ui/widgets/price_banner.dart';
+import 'package:xgenious_assignment/features/home/ui/widgets/recent_job_lists.dart';
 import 'package:xgenious_assignment/features/home/ui/widgets/searchTextField.dart';
+import 'package:xgenious_assignment/features/home/ui/widgets/services.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -19,20 +25,20 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        forceMaterialTransparency: true,
-        backgroundColor: Color(0xFFF2F2F2),
-        title: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.all(3.0),
-            child: CustomAppBar(),
-          ),
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(60), // your desired height
+        child: Container(
+          color: Color(0xFFF2F2F2),
+          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+          // flush left
+          alignment: Alignment.centerLeft,
+          child: SafeArea(child: CustomAppBar()),
         ),
       ),
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Padding(
-          padding: const EdgeInsets.all(19.0),
+          padding: const EdgeInsets.all(10.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -51,133 +57,345 @@ class _HomeScreenState extends State<HomeScreen> {
                   scrollDirection: Axis.horizontal,
                   itemCount: 10,
                   itemBuilder: (context, index) {
-                    return Row(
-                      children: [
-                        CategoryItem(),
-                        SizedBox(width: 15,),
-                      ],
-                    );
+                    return Row(children: [CategoryItem(), SizedBox(width: 15)]);
                   },
                 ),
               ),
               SizedBox(height: 8),
               HomeCarousalSlider(),
               SizedBox(height: 8),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(top: 8),
-                    child: Text('Popular Services',
-                    style: GoogleFonts.poppins(
-                      fontWeight: FontWeight.w500,
-                      fontSize: 20
-                    ),),
-                  ),
-                TextButton(
-                  onPressed: (){},
-                  child: Text('Explore all',
-                  style: GoogleFonts.poppins(
-                    fontWeight: FontWeight.w400,
-                    fontSize: 16,
-                    color: Color(0xFF242B36)
-                  ),))
-                ],
+              ListsHeadline(
+                title: 'Popular Services',
+                buttonText: 'Explore all',
               ),
               SizedBox(height: 3),
-              Card(
-                elevation: 0.3,
-                color: Colors.white,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Container(
-                        width: 220,
-                        height: 100,
-                        margin: EdgeInsets.symmetric(horizontal: 2),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.only(topLeft: Radius.circular(8),topRight: Radius.circular(8)),
-                          image: DecorationImage(image: AssetImage(AssetsPath.productImage),
-                          fit: BoxFit.cover,
-                          ),
-                        ),
-                      ),
-                      Container(
-                        width: 220,
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 4),
-                          child: Column(
-                            children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      Icon(Icons.star_border,
-                                      color: Color(0xFF3B4759),
-                                      size: 17,),
-                                      SizedBox(width: 2,),
-                                      Text('4.5',
-                                      style: GoogleFonts.poppins(
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: 14,
-                                      ),),
-                                      SizedBox(width: 3,),
-                                      Text('(23 reviews)',
-                                      style: GoogleFonts.poppins(
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: 14,
-                                        color: Color(0xFF3B4759)
-                                      ),),
-                                    ],
-                                  ),
-                                  Row(
-                                    children: [
-                                      Text('Level '),
-                                      Text('\u00B7',
-                                      style: TextStyle(
-                                        fontSize: 20,
-                                        color: Color(0xFF242B36)
-                                      )),
-                                      SizedBox(width: 2,),
-                                      Text('2',
-                                      style: GoogleFonts.poppins(
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: 14,
-                                      ),)
-                                    ],
-                                  )
-                                ],
-                              ),
-                              SizedBox(height: 5,),
-                              Text('I will do professional figma design for website tamplate....',
-                              style: GoogleFonts.poppins(
-                                fontWeight: FontWeight.w500,
-                                fontSize: 16
-                              ),),
-                              Divider(
-                                color: Color(0xFFF2F2F2),
-                                thickness: 1,
-                                height: 10,
-                              )
-                            ],
-                          ),),
-                      ),
-                    SizedBox(height: 5,),
-                    
-                    ],
+              PopularServiceCards(),
+              SizedBox(height: 12),
+              Text(
+                'Recent Job Posted',
+                style: GoogleFonts.poppins(
+                  fontWeight: FontWeight.w500,
+                  fontSize: 20,
+                ),
+              ),
+              RecentJobLists(),
+              SizedBox(height: 8),
+              LoadMoreButton(),
+              SizedBox(height: 8),
+              ListsHeadline(
+                title: 'Top Rated Freelancers',
+                buttonText: 'Explore all',
+              ),
+              SizedBox(height: 3),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: List.generate(
+                    10,
+                    (index) => Row(
+                      children: [
+                        SizedBox(
+                            width: 300,
+                            child: freelancerCard()
+                        )],
+                    ),
                   ),
                 ),
-              )
+              ),
+
+              // ...
             ],
           ),
         ),
       ),
       backgroundColor: Color(0xFFF2F2F2),
+    );
+  }
+}
+
+class freelancerCard extends StatelessWidget {
+  const freelancerCard({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      color: Colors.white,
+      child: Padding(
+        padding: EdgeInsets.all(10),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    CircleAvatar(
+                      radius: 18,
+                      backgroundImage: AssetImage(
+                        AssetsPath.profileAvatarImage,
+                      ),
+                    ),
+                    SizedBox(width: 10),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Esther Howard',
+                              style: GoogleFonts.poppins(
+                                fontWeight: FontWeight.w500,
+                                fontSize: 16,
+                              ),
+                            ),
+                            SizedBox(width: 5),
+                            Icon(
+                              Icons.check_circle,
+                              color: Color(0xFF007456),
+                              size: 16,
+                            ),
+                          ],
+                        ),
+                        Text(
+                          'UI/UX Designer',
+                          style: GoogleFonts.poppins(
+                            fontWeight: FontWeight.w400,
+                            fontSize: 14,
+                            color: Color(0xFF414E62),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+
+                Container(
+                  decoration: BoxDecoration(
+                    color: Color(0x1AEF4D17),
+                    borderRadius: BorderRadius.circular(50),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                      top: 8,
+                      bottom: 8,
+                      left: 13,
+                      right: 13,
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Icon(
+                          Icons.flash_on,
+                          size: 10,
+                          color: Color(0xffEF4D17),
+                        ),
+                        SizedBox(width: 5),
+                        Text(
+                          'Pro',
+                          style: GoogleFonts.poppins(
+                            fontWeight: FontWeight.w400,
+                            fontSize: 12,
+                            height: 0.1,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: 15),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                    color: Color(0xFFF2F2F2),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                      top: 8,
+                      bottom: 8,
+                      left: 13,
+                      right: 13,
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Figma',
+                          style: GoogleFonts.poppins(
+                            fontWeight: FontWeight.w400,
+                            fontSize: 10,
+                            height: 0.1,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                SizedBox(width: 5),
+                Container(
+                  decoration: BoxDecoration(
+                    color: Color(0xFFF2F2F2),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                      top: 8,
+                      bottom: 8,
+                      left: 13,
+                      right: 13,
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Mobile App',
+                          style: GoogleFonts.poppins(
+                            fontWeight: FontWeight.w400,
+                            fontSize: 10,
+                            height: 0.1,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                SizedBox(width: 5),
+                Text(
+                  '+4',
+                  style: GoogleFonts.inter(
+                    fontWeight: FontWeight.w500,
+                    fontSize: 12,
+                    height: 0.1,
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: 8),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                SizedBox(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Icon(Icons.star_border, size: 15),
+                      SizedBox(width: 5),
+                      Text(
+                        'Review',
+                        style: GoogleFonts.poppins(
+                          fontWeight: FontWeight.w400,
+                          fontSize: 12,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text(
+                      '4.5',
+                      style: GoogleFonts.poppins(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 12,
+                      ),
+                    ),
+                    SizedBox(width: 5),
+                    Text(
+                      '(212 reviews)',
+                      style: GoogleFonts.poppins(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 12,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            SizedBox(height: 3),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                SizedBox(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Icon(Icons.location_on_outlined, size: 15),
+                      SizedBox(width: 5),
+                      Text(
+                        'Location',
+                        style: GoogleFonts.poppins(
+                          fontWeight: FontWeight.w400,
+                          fontSize: 12,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+
+                Text(
+                  '6391 Elgin St. Celina',
+                  style: GoogleFonts.poppins(
+                    fontWeight: FontWeight.w400,
+                    fontSize: 12,
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: 3),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                SizedBox(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Icon(Icons.attach_money, size: 15),
+                      SizedBox(width: 5),
+                      Text(
+                        'Hourly Rate',
+                        style: GoogleFonts.poppins(
+                          fontWeight: FontWeight.w400,
+                          fontSize: 12,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+
+                Row(
+                  children: [
+                    Text(
+                      '\$83.00',
+                      style: GoogleFonts.poppins(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 12,
+                      ),
+                    ),
+                    Text(
+                      '/hr',
+                      style: GoogleFonts.poppins(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 12,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
