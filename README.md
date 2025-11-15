@@ -1,16 +1,15 @@
-# xgenious_assignment
+# 📱 xgenious_assignment - Mobile UI Components
 
-A new Flutter project.
+This repository contains the starting point and **core UI components** for a mobile application built using the Flutter framework.
 
-## Getting Started
+The main purpose of this project is to implement and showcase various user interface widgets and screens, focusing on clean, modern design and responsive layouts.
 
-This project is a starting point for a Flutter application.
+## ✨ Project Highlights
 
-A few resources to get you started if this is your first Flutter project:
+* **Technology Stack:** Flutter (Dart)
+* **Focus:** UI Implementation, component-based design, and state management scaffolding.
+* **Design:** Utilizes Google Fonts for custom typography and follows a component-driven architecture.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+### Key Components
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+In this repositories I have made custom widgets of different components which made the code readable and understandable easily.
